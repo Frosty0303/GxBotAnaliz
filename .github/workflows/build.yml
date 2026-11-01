@@ -9,25 +9,25 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Clone repo
-        run: |
-          git clone https://github.com/${{ github.repository }}.git .
-          git checkout main
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Install Java and Flutter manually
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk curl unzip
-          git clone https://github.com/flutter/flutter.git -b stable --depth 1 _flutter
-          echo "$GITHUB_WORKSPACE/_flutter/bin" >> $GITHUB_PATH
-          flutter config --no-analytics
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
 
-      - name: Pub get and Build
-        run: |
-          flutter pub get
-          flutter build apk --release
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+          channel: 'stable'
 
-      - name: Upload APK
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release
