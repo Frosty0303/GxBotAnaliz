@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'analiz_sayfasi.dart'; // Analiz sayfamızı buraya bağlıyoruz
 
 void main() => runApp(const AnalizApp());
 
@@ -9,7 +10,7 @@ class AnalizApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'AI Maç Analiz',
+      title: 'GX Maç Analiz',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF121212),
         primaryColor: const Color(0xFF1B5E20),
@@ -82,7 +83,17 @@ class MacListesi extends StatelessWidget {
               child: Text(mac['skor']!, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
             ),
             onTap: () {
-              print("${mac['ev']} - ${mac['dep']} analiz ekranına gidiliyor...");
+              // Maça tıklandığında doğrudan GX Yapay Zeka Analiz Sayfası açılır!
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AnalizDetaySayfasi(
+                    evSahibi: mac['ev']!,
+                    deplasman: mac['dep']!,
+                    lig: mac['lig']!,
+                  ),
+                ),
+              );
             },
           ),
         );
