@@ -6,18 +6,11 @@ workflows:
       flutter: stable
       java: 17
     scripts:
-      - name: Generate Android files
+      - name: Get dependencies
         script: |
-          flutter create . --platforms=android
-      - name: Accept Android licenses
-        script: |
-          yes | flutter doctor --android-licenses
-      - name: Clean and Get Dependencies
-        script: |
-          flutter clean
           flutter pub get
       - name: Build APK
         script: |
-          flutter build apk --release
+          flutter build apk --release --no-pub
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
