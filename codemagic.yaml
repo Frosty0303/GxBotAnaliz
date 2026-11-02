@@ -6,6 +6,9 @@ workflows:
       flutter: stable
       java: 17
     scripts:
+      - name: Clean project
+        script: |
+          flutter clean
       - name: Install dependencies
         script: |
           flutter pub get
