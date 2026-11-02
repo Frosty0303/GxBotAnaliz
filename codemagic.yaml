@@ -6,11 +6,12 @@ workflows:
       flutter: stable
       java: 17
     scripts:
-      - name: Get dependencies
+      - name: Clean and Get Dependencies
         script: |
+          flutter clean
           flutter pub get
       - name: Build APK
         script: |
-          flutter build apk --release --no-pub
+          flutter build apk --release
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
