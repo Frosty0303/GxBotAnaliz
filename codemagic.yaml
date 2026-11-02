@@ -9,6 +9,9 @@ workflows:
       - name: Generate Android files
         script: |
           flutter create . --platforms=android
+      - name: Accept Android licenses
+        script: |
+          yes | flutter doctor --android-licenses
       - name: Clean and Get Dependencies
         script: |
           flutter clean
